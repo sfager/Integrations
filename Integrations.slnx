@@ -1,3 +1,9 @@
 <Solution>
-  <Project Path="src/Edi/Integrations.EDI.csproj" Id="5f791644-e067-4269-8ec1-7e7356f8e8dc" />
+  <Folder Name="/src/" />
+  <Folder Name="/src/Edi/">
+    <Project Path="src/Edi/Integrations.EDI.csproj" Id="5f791644-e067-4269-8ec1-7e7356f8e8dc" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Edi.Tests/Edi.Tests.csproj" />
+  </Folder>
 </Solution>
