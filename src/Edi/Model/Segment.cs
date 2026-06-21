@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Integrations.EDI.Model;
 
 namespace Integrations.EDI
 {
