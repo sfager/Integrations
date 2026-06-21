@@ -1,0 +1,1311 @@
+{
+  "transactionSet": {
+    "id": "810",
+    "name": "Invoice",
+    "version": "004010",
+    "note": "Custom descriptive schema for parser/validator use. Not an official X12-published XSD/JSON Schema."
+  },
+  "legend": {
+    "required": "M = Mandatory, O = Optional",
+    "type": "AN = Alphanumeric, N0 = Numeric (0 decimal), N2 = Numeric (2 decimal), R = Decimal/Real, ID = Code list, DT = Date (CCYYMMDD), TM = Time"
+  },
+  "headerArea": [
+    {
+      "segmentId": "ST",
+      "name": "Transaction Set Header",
+      "required": "M",
+      "maxUse": 1,
+      "elements": [
+        {
+          "id": "ST01",
+          "name": "Transaction Set Identifier Code",
+          "required": "M",
+          "type": "ID",
+          "minLength": 3,
+          "maxLength": 3,
+          "note": "Constant value '810'"
+        },
+        {
+          "id": "ST02",
+          "name": "Transaction Set Control Number",
+          "required": "M",
+          "type": "AN",
+          "minLength": 4,
+          "maxLength": 9
+        }
+      ]
+    },
+    {
+      "segmentId": "BIG",
+      "name": "Beginning Segment for Invoice",
+      "required": "M",
+      "maxUse": 1,
+      "elements": [
+        {
+          "id": "BIG01",
+          "name": "Invoice Date",
+          "required": "M",
+          "type": "DT",
+          "minLength": 8,
+          "maxLength": 8
+        },
+        {
+          "id": "BIG02",
+          "name": "Invoice Number",
+          "required": "M",
+          "type": "AN",
+          "minLength": 1,
+          "maxLength": 22
+        },
+        {
+          "id": "BIG03",
+          "name": "Purchase Order Date",
+          "required": "O",
+          "type": "DT",
+          "minLength": 8,
+          "maxLength": 8
+        },
+        {
+          "id": "BIG04",
+          "name": "Purchase Order Number",
+          "required": "O",
+          "type": "AN",
+          "minLength": 1,
+          "maxLength": 22
+        },
+        {
+          "id": "BIG05",
+          "name": "Release Number",
+          "required": "O",
+          "type": "AN",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        {
+          "id": "BIG06",
+          "name": "Change Order Sequence Number",
+          "required": "O",
+          "type": "AN",
+          "minLength": 1,
+          "maxLength": 8
+        },
+        {
+          "id": "BIG07",
+          "name": "Transaction Type Code",
+          "required": "O",
+          "type": "ID",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      ]
+    },
+    {
+      "segmentId": "CUR",
+      "name": "Currency",
+      "required": "O",
+      "maxUse": 1,
+      "elements": [
+        {
+          "id": "CUR01",
+          "name": "Entity Identifier Code",
+          "required": "M",
+          "type": "ID",
+          "minLength": 2,
+          "maxLength": 3
+        },
+        {
+          "id": "CUR02",
+          "name": "Currency Code",
+          "required": "M",
+          "type": "ID",
+          "minLength": 3,
+          "maxLength": 3
+        }
+      ]
+    },
+    {
+      "segmentId": "REF",
+      "name": "Reference Identification",
+      "required": "O",
+      "maxUse": 12,
+      "elements": [
+        {
+          "id": "REF01",
+          "name": "Reference Identification Qualifier",
+          "required": "M",
+          "type": "ID",
+          "minLength": 2,
+          "maxLength": 3
+        },
+        {
+          "id": "REF02",
+          "name": "Reference Identification",
+          "required": "O",
+          "type": "AN",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        {
+          "id": "REF03",
+          "name": "Description",
+          "required": "O",
+          "type": "AN",
+          "minLength": 1,
+          "maxLength": 80
+        }
+      ]
+    },
+    {
+      "loopId": "0100",
+      "name": "N1 Loop - Header Party Identification",
+      "required": "O",
+      "maxUse": 200,
+      "loopStartSegment": "N1",
+      "segments": [
+        {
+          "segmentId": "N1",
+          "name": "Name",
+          "required": "M",
+          "maxUse": 1,
+          "loopTrigger": true,
+          "elements": [
+            {
+              "id": "N101",
+              "name": "Entity Identifier Code",
+              "required": "M",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 3,
+              "note": "e.g. BY=Buyer, SE=Seller, ST=Ship To, RE=Remit To, VN=Vendor"
+            },
+            {
+              "id": "N102",
+              "name": "Name",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 60
+            },
+            {
+              "id": "N103",
+              "name": "Identification Code Qualifier",
+              "required": "O",
+              "type": "ID",
+              "minLength": 1,
+              "maxLength": 2
+            },
+            {
+              "id": "N104",
+              "name": "Identification Code",
+              "required": "O",
+              "type": "AN",
+              "minLength": 2,
+              "maxLength": 80
+            }
+          ]
+        },
+        {
+          "segmentId": "N2",
+          "name": "Additional Name Information",
+          "required": "O",
+          "maxUse": 2,
+          "elements": [
+            {
+              "id": "N201",
+              "name": "Name",
+              "required": "M",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 60
+            },
+            {
+              "id": "N202",
+              "name": "Name",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 60
+            }
+          ]
+        },
+        {
+          "segmentId": "N3",
+          "name": "Address Information",
+          "required": "O",
+          "maxUse": 2,
+          "elements": [
+            {
+              "id": "N301",
+              "name": "Address Information",
+              "required": "M",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 55
+            },
+            {
+              "id": "N302",
+              "name": "Address Information",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 55
+            }
+          ]
+        },
+        {
+          "segmentId": "N4",
+          "name": "Geographic Location",
+          "required": "O",
+          "maxUse": 1,
+          "elements": [
+            {
+              "id": "N401",
+              "name": "City Name",
+              "required": "O",
+              "type": "AN",
+              "minLength": 2,
+              "maxLength": 30
+            },
+            {
+              "id": "N402",
+              "name": "State or Province Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "N403",
+              "name": "Postal Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 3,
+              "maxLength": 15
+            },
+            {
+              "id": "N404",
+              "name": "Country Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 3
+            }
+          ]
+        },
+        {
+          "segmentId": "REF",
+          "name": "Reference Identification (Party Level)",
+          "required": "O",
+          "maxUse": 12,
+          "elements": [
+            {
+              "id": "REF01",
+              "name": "Reference Identification Qualifier",
+              "required": "M",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 3
+            },
+            {
+              "id": "REF02",
+              "name": "Reference Identification",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 30
+            }
+          ]
+        },
+        {
+          "segmentId": "PER",
+          "name": "Administrative Communications Contact",
+          "required": "O",
+          "maxUse": 3,
+          "elements": [
+            {
+              "id": "PER01",
+              "name": "Contact Function Code",
+              "required": "M",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "PER02",
+              "name": "Name",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 60
+            },
+            {
+              "id": "PER03",
+              "name": "Communication Number Qualifier",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "PER04",
+              "name": "Communication Number",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 80
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "segmentId": "ITD",
+      "name": "Terms of Sale/Deferred Terms of Sale",
+      "required": "O",
+      "maxUse": 2,
+      "elements": [
+        {
+          "id": "ITD01",
+          "name": "Terms Type Code",
+          "required": "O",
+          "type": "ID",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        {
+          "id": "ITD02",
+          "name": "Terms Basis Date Code",
+          "required": "O",
+          "type": "ID",
+          "minLength": 1,
+          "maxLength": 2
+        },
+        {
+          "id": "ITD03",
+          "name": "Terms Discount Percent",
+          "required": "O",
+          "type": "R",
+          "minLength": 1,
+          "maxLength": 6
+        },
+        {
+          "id": "ITD04",
+          "name": "Terms Discount Due Date",
+          "required": "O",
+          "type": "DT",
+          "minLength": 8,
+          "maxLength": 8
+        },
+        {
+          "id": "ITD05",
+          "name": "Terms Discount Days Due",
+          "required": "O",
+          "type": "N0",
+          "minLength": 1,
+          "maxLength": 3
+        },
+        {
+          "id": "ITD06",
+          "name": "Terms Net Due Date",
+          "required": "O",
+          "type": "DT",
+          "minLength": 8,
+          "maxLength": 8
+        },
+        {
+          "id": "ITD07",
+          "name": "Terms Net Days",
+          "required": "O",
+          "type": "N0",
+          "minLength": 1,
+          "maxLength": 3
+        },
+        {
+          "id": "ITD12",
+          "name": "Description",
+          "required": "O",
+          "type": "AN",
+          "minLength": 1,
+          "maxLength": 80
+        }
+      ]
+    },
+    {
+      "segmentId": "DTM",
+      "name": "Date/Time Reference",
+      "required": "O",
+      "maxUse": 10,
+      "elements": [
+        {
+          "id": "DTM01",
+          "name": "Date/Time Qualifier",
+          "required": "M",
+          "type": "ID",
+          "minLength": 3,
+          "maxLength": 3
+        },
+        {
+          "id": "DTM02",
+          "name": "Date",
+          "required": "O",
+          "type": "DT",
+          "minLength": 8,
+          "maxLength": 8
+        },
+        {
+          "id": "DTM03",
+          "name": "Time",
+          "required": "O",
+          "type": "TM",
+          "minLength": 4,
+          "maxLength": 8
+        }
+      ]
+    },
+    {
+      "segmentId": "FOB",
+      "name": "F.O.B. Related Instructions",
+      "required": "O",
+      "maxUse": 1,
+      "elements": [
+        {
+          "id": "FOB01",
+          "name": "Shipment Method of Payment",
+          "required": "M",
+          "type": "ID",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        {
+          "id": "FOB02",
+          "name": "Location Qualifier",
+          "required": "O",
+          "type": "ID",
+          "minLength": 1,
+          "maxLength": 2
+        },
+        {
+          "id": "FOB03",
+          "name": "Description",
+          "required": "O",
+          "type": "AN",
+          "minLength": 1,
+          "maxLength": 80
+        }
+      ]
+    },
+    {
+      "loopId": "0200",
+      "name": "SAC Loop - Header Service/Allowance/Charge",
+      "required": "O",
+      "maxUse": 25,
+      "loopStartSegment": "SAC",
+      "segments": [
+        {
+          "segmentId": "SAC",
+          "name": "Service, Promotion, Allowance, or Charge Information",
+          "required": "M",
+          "maxUse": 1,
+          "loopTrigger": true,
+          "elements": [
+            {
+              "id": "SAC01",
+              "name": "Allowance or Charge Indicator",
+              "required": "M",
+              "type": "ID",
+              "minLength": 1,
+              "maxLength": 1,
+              "note": "A=Allowance, C=Charge"
+            },
+            {
+              "id": "SAC02",
+              "name": "Service, Promotion, Allowance, or Charge Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 4,
+              "maxLength": 4
+            },
+            {
+              "id": "SAC05",
+              "name": "Amount",
+              "required": "O",
+              "type": "N2",
+              "minLength": 1,
+              "maxLength": 15
+            },
+            {
+              "id": "SAC13",
+              "name": "Description",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 80
+            }
+          ]
+        },
+        {
+          "segmentId": "TXI",
+          "name": "Tax Information",
+          "required": "O",
+          "maxUse": 1,
+          "elements": [
+            {
+              "id": "TXI01",
+              "name": "Tax Type Code",
+              "required": "M",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "TXI02",
+              "name": "Monetary Amount",
+              "required": "O",
+              "type": "R",
+              "minLength": 1,
+              "maxLength": 18
+            },
+            {
+              "id": "TXI03",
+              "name": "Percent",
+              "required": "O",
+              "type": "R",
+              "minLength": 1,
+              "maxLength": 10
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "detailArea": [
+    {
+      "loopId": "0300",
+      "name": "IT1 Loop - Line Item Detail",
+      "required": "O",
+      "maxUse": 200000,
+      "loopStartSegment": "IT1",
+      "note": "Primary repeating unit for the transaction set. Every new IT1 segment starts a new iteration.",
+      "segments": [
+        {
+          "segmentId": "IT1",
+          "name": "Baseline Item Data (Invoice)",
+          "required": "M",
+          "maxUse": 1,
+          "loopTrigger": true,
+          "elements": [
+            {
+              "id": "IT101",
+              "name": "Assigned Identification",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 20
+            },
+            {
+              "id": "IT102",
+              "name": "Quantity Invoiced",
+              "required": "O",
+              "type": "R",
+              "minLength": 1,
+              "maxLength": 10
+            },
+            {
+              "id": "IT103",
+              "name": "Unit or Basis for Measurement Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "IT104",
+              "name": "Unit Price",
+              "required": "O",
+              "type": "R",
+              "minLength": 1,
+              "maxLength": 17
+            },
+            {
+              "id": "IT105",
+              "name": "Basis of Unit Price Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "IT106",
+              "name": "Product/Service ID Qualifier",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "IT107",
+              "name": "Product/Service ID",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 48,
+              "note": "e.g. UPC, VP=Vendor Part Number, SK=SKU"
+            },
+            {
+              "id": "IT108",
+              "name": "Product/Service ID Qualifier",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "IT109",
+              "name": "Product/Service ID",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 48
+            }
+          ]
+        },
+        {
+          "segmentId": "CUR",
+          "name": "Currency (Line Level Override)",
+          "required": "O",
+          "maxUse": 1,
+          "elements": [
+            {
+              "id": "CUR01",
+              "name": "Entity Identifier Code",
+              "required": "M",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 3
+            },
+            {
+              "id": "CUR02",
+              "name": "Currency Code",
+              "required": "M",
+              "type": "ID",
+              "minLength": 3,
+              "maxLength": 3
+            }
+          ]
+        },
+        {
+          "segmentId": "PID",
+          "name": "Product/Item Description",
+          "required": "O",
+          "maxUse": 1000,
+          "elements": [
+            {
+              "id": "PID01",
+              "name": "Item Description Type",
+              "required": "M",
+              "type": "ID",
+              "minLength": 1,
+              "maxLength": 1,
+              "note": "F=Free Form, S=Structured"
+            },
+            {
+              "id": "PID02",
+              "name": "Product/Process Characteristic Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 3
+            },
+            {
+              "id": "PID05",
+              "name": "Description",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 80
+            }
+          ]
+        },
+        {
+          "segmentId": "MEA",
+          "name": "Measurements",
+          "required": "O",
+          "maxUse": 40,
+          "elements": [
+            {
+              "id": "MEA01",
+              "name": "Measurement Reference ID Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "MEA02",
+              "name": "Measurement Qualifier",
+              "required": "O",
+              "type": "ID",
+              "minLength": 1,
+              "maxLength": 3
+            },
+            {
+              "id": "MEA03",
+              "name": "Measurement Value",
+              "required": "O",
+              "type": "R",
+              "minLength": 1,
+              "maxLength": 20
+            }
+          ]
+        },
+        {
+          "segmentId": "PWK",
+          "name": "Paperwork",
+          "required": "O",
+          "maxUse": 25,
+          "elements": [
+            {
+              "id": "PWK01",
+              "name": "Report Type Code",
+              "required": "M",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "PWK02",
+              "name": "Report Transmission Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 1,
+              "maxLength": 2
+            }
+          ]
+        },
+        {
+          "segmentId": "PO4",
+          "name": "Item Physical Details",
+          "required": "O",
+          "maxUse": 1,
+          "elements": [
+            {
+              "id": "PO401",
+              "name": "Pack",
+              "required": "O",
+              "type": "N0",
+              "minLength": 1,
+              "maxLength": 6
+            },
+            {
+              "id": "PO402",
+              "name": "Size",
+              "required": "O",
+              "type": "R",
+              "minLength": 1,
+              "maxLength": 8
+            },
+            {
+              "id": "PO403",
+              "name": "Unit or Basis for Measurement Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            }
+          ]
+        },
+        {
+          "segmentId": "REF",
+          "name": "Reference Identification (Line Level)",
+          "required": "O",
+          "maxUse": 12,
+          "elements": [
+            {
+              "id": "REF01",
+              "name": "Reference Identification Qualifier",
+              "required": "M",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 3
+            },
+            {
+              "id": "REF02",
+              "name": "Reference Identification",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 30
+            }
+          ]
+        },
+        {
+          "segmentId": "PER",
+          "name": "Administrative Communications Contact",
+          "required": "O",
+          "maxUse": 3,
+          "elements": [
+            {
+              "id": "PER01",
+              "name": "Contact Function Code",
+              "required": "M",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "PER02",
+              "name": "Name",
+              "required": "O",
+              "type": "AN",
+              "minLength": 1,
+              "maxLength": 60
+            }
+          ]
+        },
+        {
+          "segmentId": "SAC",
+          "name": "Service, Promotion, Allowance, or Charge Information (Line Level)",
+          "required": "O",
+          "maxUse": 25,
+          "elements": [
+            {
+              "id": "SAC01",
+              "name": "Allowance or Charge Indicator",
+              "required": "M",
+              "type": "ID",
+              "minLength": 1,
+              "maxLength": 1
+            },
+            {
+              "id": "SAC02",
+              "name": "Service, Promotion, Allowance, or Charge Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 4,
+              "maxLength": 4
+            },
+            {
+              "id": "SAC05",
+              "name": "Amount",
+              "required": "O",
+              "type": "N2",
+              "minLength": 1,
+              "maxLength": 15
+            }
+          ]
+        },
+        {
+          "segmentId": "IT3",
+          "name": "Additional Item Data",
+          "required": "O",
+          "maxUse": 1,
+          "elements": [
+            {
+              "id": "IT301",
+              "name": "Number of Units Shipped",
+              "required": "O",
+              "type": "R",
+              "minLength": 1,
+              "maxLength": 9
+            },
+            {
+              "id": "IT302",
+              "name": "Unit or Basis for Measurement Code",
+              "required": "O",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            }
+          ]
+        },
+        {
+          "segmentId": "TXI",
+          "name": "Tax Information (Line Level)",
+          "required": "O",
+          "maxUse": 10,
+          "elements": [
+            {
+              "id": "TXI01",
+              "name": "Tax Type Code",
+              "required": "M",
+              "type": "ID",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            {
+              "id": "TXI02",
+              "name": "Monetary Amount",
+              "required": "O",
+              "type": "R",
+              "minLength": 1,
+              "maxLength": 18
+            },
+            {
+              "id": "TXI03",
+              "name": "Percent",
+              "required": "O",
+              "type": "R",
+              "minLength": 1,
+              "maxLength": 10
+            }
+          ]
+        },
+        {
+          "segmentId": "DTM",
+          "name": "Date/Time Reference (Line Level)",
+          "required": "O",
+          "maxUse": 10,
+          "elements": [
+            {
+              "id": "DTM01",
+              "name": "Date/Time Qualifier",
+              "required": "M",
+              "type": "ID",
+              "minLength": 3,
+              "maxLength": 3
+            },
+            {
+              "id": "DTM02",
+              "name": "Date",
+              "required": "O",
+              "type": "DT",
+              "minLength": 8,
+              "maxLength": 8
+            }
+          ]
+        },
+        {
+          "loopId": "0310",
+          "name": "N1 Loop - Line Item Party Identification",
+          "required": "O",
+          "maxUse": 200,
+          "loopStartSegment": "N1",
+          "note": "Nested sub-loop inside 0300 (IT1 loop).",
+          "segments": [
+            {
+              "segmentId": "N1",
+              "name": "Name",
+              "required": "M",
+              "maxUse": 1,
+              "loopTrigger": true,
+              "elements": [
+                {
+                  "id": "N101",
+                  "name": "Entity Identifier Code",
+                  "required": "M",
+                  "type": "ID",
+                  "minLength": 2,
+                  "maxLength": 3
+                },
+                {
+                  "id": "N102",
+                  "name": "Name",
+                  "required": "O",
+                  "type": "AN",
+                  "minLength": 1,
+                  "maxLength": 60
+                },
+                {
+                  "id": "N103",
+                  "name": "Identification Code Qualifier",
+                  "required": "O",
+                  "type": "ID",
+                  "minLength": 1,
+                  "maxLength": 2
+                },
+                {
+                  "id": "N104",
+                  "name": "Identification Code",
+                  "required": "O",
+                  "type": "AN",
+                  "minLength": 2,
+                  "maxLength": 80
+                }
+              ]
+            },
+            {
+              "segmentId": "N3",
+              "name": "Address Information",
+              "required": "O",
+              "maxUse": 2,
+              "elements": [
+                {
+                  "id": "N301",
+                  "name": "Address Information",
+                  "required": "M",
+                  "type": "AN",
+                  "minLength": 1,
+                  "maxLength": 55
+                }
+              ]
+            },
+            {
+              "segmentId": "N4",
+              "name": "Geographic Location",
+              "required": "O",
+              "maxUse": 1,
+              "elements": [
+                {
+                  "id": "N401",
+                  "name": "City Name",
+                  "required": "O",
+                  "type": "AN",
+                  "minLength": 2,
+                  "maxLength": 30
+                },
+                {
+                  "id": "N402",
+                  "name": "State or Province Code",
+                  "required": "O",
+                  "type": "ID",
+                  "minLength": 2,
+                  "maxLength": 2
+                },
+                {
+                  "id": "N403",
+                  "name": "Postal Code",
+                  "required": "O",
+                  "type": "ID",
+                  "minLength": 3,
+                  "maxLength": 15
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summaryArea": [
+    {
+      "segmentId": "TDS",
+      "name": "Total Monetary Value Summary",
+      "required": "M",
+      "maxUse": 1,
+      "elements": [
+        {
+          "id": "TDS01",
+          "name": "Amount (Invoice Total)",
+          "required": "M",
+          "type": "N2",
+          "minLength": 1,
+          "maxLength": 15
+        },
+        {
+          "id": "TDS02",
+          "name": "Amount (Terms Discount)",
+          "required": "O",
+          "type": "N2",
+          "minLength": 1,
+          "maxLength": 15
+        },
+        {
+          "id": "TDS03",
+          "name": "Amount (Terms Discount + Total)",
+          "required": "O",
+          "type": "N2",
+          "minLength": 1,
+          "maxLength": 15
+        }
+      ]
+    },
+    {
+      "segmentId": "TXI",
+      "name": "Tax Information (Summary Level)",
+      "required": "O",
+      "maxUse": 10,
+      "elements": [
+        {
+          "id": "TXI01",
+          "name": "Tax Type Code",
+          "required": "M",
+          "type": "ID",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        {
+          "id": "TXI02",
+          "name": "Monetary Amount",
+          "required": "O",
+          "type": "R",
+          "minLength": 1,
+          "maxLength": 18
+        },
+        {
+          "id": "TXI03",
+          "name": "Percent",
+          "required": "O",
+          "type": "R",
+          "minLength": 1,
+          "maxLength": 10
+        }
+      ]
+    },
+    {
+      "segmentId": "CAD",
+      "name": "Carrier Detail",
+      "required": "O",
+      "maxUse": 1,
+      "elements": [
+        {
+          "id": "CAD01",
+          "name": "Transportation Method/Type Code",
+          "required": "O",
+          "type": "ID",
+          "minLength": 1,
+          "maxLength": 2
+        },
+        {
+          "id": "CAD02",
+          "name": "Equipment Initial",
+          "required": "O",
+          "type": "AN",
+          "minLength": 1,
+          "maxLength": 4
+        },
+        {
+          "id": "CAD03",
+          "name": "Equipment Number",
+          "required": "O",
+          "type": "AN",
+          "minLength": 1,
+          "maxLength": 10
+        }
+      ]
+    },
+    {
+      "segmentId": "SAC",
+      "name": "Service, Promotion, Allowance, or Charge Information (Summary Level)",
+      "required": "O",
+      "maxUse": 25,
+      "elements": [
+        {
+          "id": "SAC01",
+          "name": "Allowance or Charge Indicator",
+          "required": "M",
+          "type": "ID",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        {
+          "id": "SAC02",
+          "name": "Service, Promotion, Allowance, or Charge Code",
+          "required": "O",
+          "type": "ID",
+          "minLength": 4,
+          "maxLength": 4
+        },
+        {
+          "id": "SAC05",
+          "name": "Amount",
+          "required": "O",
+          "type": "N2",
+          "minLength": 1,
+          "maxLength": 15
+        }
+      ]
+    },
+    {
+      "segmentId": "ISS",
+      "name": "Invoice Shipment Summary",
+      "required": "O",
+      "maxUse": 1,
+      "elements": [
+        {
+          "id": "ISS01",
+          "name": "Number of Units Shipped",
+          "required": "O",
+          "type": "R",
+          "minLength": 1,
+          "maxLength": 9
+        },
+        {
+          "id": "ISS02",
+          "name": "Unit or Basis for Measurement Code",
+          "required": "O",
+          "type": "ID",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      ]
+    },
+    {
+      "segmentId": "CTT",
+      "name": "Transaction Totals",
+      "required": "O",
+      "maxUse": 1,
+      "elements": [
+        {
+          "id": "CTT01",
+          "name": "Number of Line Items",
+          "required": "M",
+          "type": "N0",
+          "minLength": 1,
+          "maxLength": 6
+        },
+        {
+          "id": "CTT02",
+          "name": "Hash Total",
+          "required": "O",
+          "type": "R",
+          "minLength": 1,
+          "maxLength": 10
+        }
+      ]
+    },
+    {
+      "segmentId": "SE",
+      "name": "Transaction Set Trailer",
+      "required": "M",
+      "maxUse": 1,
+      "elements": [
+        {
+          "id": "SE01",
+          "name": "Number of Included Segments",
+          "required": "M",
+          "type": "N0",
+          "minLength": 1,
+          "maxLength": 10
+        },
+        {
+          "id": "SE02",
+          "name": "Transaction Set Control Number",
+          "required": "M",
+          "type": "AN",
+          "minLength": 4,
+          "maxLength": 9
+        }
+      ]
+    }
+  ],
+  "loopIndex": [
+    {
+      "loopId": "0100",
+      "startSegment": "N1",
+      "area": "Header",
+      "maxUse": 200,
+      "description": "Header-level party identification (BY, SE, ST, RE, VN...)"
+    },
+    {
+      "loopId": "0200",
+      "startSegment": "SAC",
+      "area": "Header",
+      "maxUse": 25,
+      "description": "Header-level allowance/charge"
+    },
+    {
+      "loopId": "0300",
+      "startSegment": "IT1",
+      "area": "Detail",
+      "maxUse": 200000,
+      "description": "Line item detail - primary repeating unit"
+    },
+    {
+      "loopId": "0310",
+      "startSegment": "N1",
+      "area": "Detail",
+      "maxUse": 200,
+      "description": "Line-item-level party identification (nested inside 0300)"
+    }
+  ]
+}
